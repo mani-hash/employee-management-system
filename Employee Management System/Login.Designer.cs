@@ -29,112 +29,115 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
-            mainImage = new PictureBox();
-            loginForm = new GroupBox();
-            loginBtn = new Button();
-            clearBtn = new Button();
-            password = new TextBox();
-            username = new TextBox();
-            passwordLabel = new Label();
-            usernameLabel = new Label();
-            exitBtn = new Button();
-            ((System.ComponentModel.ISupportInitialize)mainImage).BeginInit();
-            loginForm.SuspendLayout();
+            MainImage = new PictureBox();
+            LoginForm = new GroupBox();
+            LoginBtn = new Button();
+            ClearBtn = new Button();
+            Password = new TextBox();
+            Username = new TextBox();
+            PasswordLabel = new Label();
+            UsernameLabel = new Label();
+            ExitBtn = new Button();
+            ((System.ComponentModel.ISupportInitialize)MainImage).BeginInit();
+            LoginForm.SuspendLayout();
             SuspendLayout();
             // 
-            // mainImage
+            // MainImage
             // 
-            mainImage.Anchor = AnchorStyles.None;
-            mainImage.Image = Properties.Resources.emp_management;
-            mainImage.Location = new Point(12, 18);
-            mainImage.Name = "mainImage";
-            mainImage.Size = new Size(547, 215);
-            mainImage.SizeMode = PictureBoxSizeMode.Zoom;
-            mainImage.TabIndex = 0;
-            mainImage.TabStop = false;
+            MainImage.Anchor = AnchorStyles.None;
+            MainImage.Image = Properties.Resources.emp_management;
+            MainImage.Location = new Point(12, 18);
+            MainImage.Name = "MainImage";
+            MainImage.Size = new Size(547, 215);
+            MainImage.SizeMode = PictureBoxSizeMode.Zoom;
+            MainImage.TabIndex = 0;
+            MainImage.TabStop = false;
             // 
-            // loginForm
+            // LoginForm
             // 
-            loginForm.Anchor = AnchorStyles.None;
-            loginForm.Controls.Add(loginBtn);
-            loginForm.Controls.Add(clearBtn);
-            loginForm.Controls.Add(password);
-            loginForm.Controls.Add(username);
-            loginForm.Controls.Add(passwordLabel);
-            loginForm.Controls.Add(usernameLabel);
-            loginForm.Font = new Font("Segoe UI", 11F);
-            loginForm.Location = new Point(12, 247);
-            loginForm.Name = "loginForm";
-            loginForm.Size = new Size(547, 271);
-            loginForm.TabIndex = 1;
-            loginForm.TabStop = false;
-            loginForm.Text = "Login";
+            LoginForm.Anchor = AnchorStyles.None;
+            LoginForm.Controls.Add(LoginBtn);
+            LoginForm.Controls.Add(ClearBtn);
+            LoginForm.Controls.Add(Password);
+            LoginForm.Controls.Add(Username);
+            LoginForm.Controls.Add(PasswordLabel);
+            LoginForm.Controls.Add(UsernameLabel);
+            LoginForm.Font = new Font("Segoe UI", 11F);
+            LoginForm.Location = new Point(12, 247);
+            LoginForm.Name = "LoginForm";
+            LoginForm.Size = new Size(547, 271);
+            LoginForm.TabIndex = 1;
+            LoginForm.TabStop = false;
+            LoginForm.Text = "Login";
             // 
-            // loginBtn
+            // LoginBtn
             // 
-            loginBtn.Anchor = AnchorStyles.Right;
-            loginBtn.Location = new Point(379, 209);
-            loginBtn.Name = "loginBtn";
-            loginBtn.Size = new Size(80, 34);
-            loginBtn.TabIndex = 5;
-            loginBtn.Text = "Login";
-            loginBtn.UseVisualStyleBackColor = true;
+            LoginBtn.Anchor = AnchorStyles.Right;
+            LoginBtn.Location = new Point(379, 209);
+            LoginBtn.Name = "LoginBtn";
+            LoginBtn.Size = new Size(80, 34);
+            LoginBtn.TabIndex = 5;
+            LoginBtn.Text = "Login";
+            LoginBtn.UseVisualStyleBackColor = true;
+            LoginBtn.Click += LoginBtn_Click;
             // 
-            // clearBtn
+            // ClearBtn
             // 
-            clearBtn.Anchor = AnchorStyles.Left;
-            clearBtn.Location = new Point(72, 209);
-            clearBtn.Name = "clearBtn";
-            clearBtn.Size = new Size(80, 34);
-            clearBtn.TabIndex = 4;
-            clearBtn.Text = "Clear";
-            clearBtn.UseVisualStyleBackColor = true;
+            ClearBtn.Anchor = AnchorStyles.Left;
+            ClearBtn.Location = new Point(72, 209);
+            ClearBtn.Name = "ClearBtn";
+            ClearBtn.Size = new Size(80, 34);
+            ClearBtn.TabIndex = 4;
+            ClearBtn.Text = "Clear";
+            ClearBtn.UseVisualStyleBackColor = true;
+            ClearBtn.Click += ClearBtn_Click;
             // 
-            // password
+            // Password
             // 
-            password.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            password.Location = new Point(174, 128);
-            password.Name = "password";
-            password.Size = new Size(285, 27);
-            password.TabIndex = 3;
+            Password.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            Password.Location = new Point(174, 128);
+            Password.Name = "Password";
+            Password.Size = new Size(285, 27);
+            Password.TabIndex = 3;
             // 
-            // username
+            // Username
             // 
-            username.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            username.Location = new Point(174, 70);
-            username.Name = "username";
-            username.Size = new Size(285, 27);
-            username.TabIndex = 2;
+            Username.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            Username.Location = new Point(174, 70);
+            Username.Name = "Username";
+            Username.Size = new Size(285, 27);
+            Username.TabIndex = 2;
             // 
-            // passwordLabel
+            // PasswordLabel
             // 
-            passwordLabel.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            passwordLabel.AutoSize = true;
-            passwordLabel.Location = new Point(65, 128);
-            passwordLabel.Name = "passwordLabel";
-            passwordLabel.Size = new Size(70, 20);
-            passwordLabel.TabIndex = 1;
-            passwordLabel.Text = "Password";
+            PasswordLabel.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            PasswordLabel.AutoSize = true;
+            PasswordLabel.Location = new Point(65, 128);
+            PasswordLabel.Name = "PasswordLabel";
+            PasswordLabel.Size = new Size(70, 20);
+            PasswordLabel.TabIndex = 1;
+            PasswordLabel.Text = "Password";
             // 
-            // usernameLabel
+            // UsernameLabel
             // 
-            usernameLabel.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            usernameLabel.AutoSize = true;
-            usernameLabel.Location = new Point(61, 70);
-            usernameLabel.Name = "usernameLabel";
-            usernameLabel.Size = new Size(75, 20);
-            usernameLabel.TabIndex = 0;
-            usernameLabel.Text = "Username";
+            UsernameLabel.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            UsernameLabel.AutoSize = true;
+            UsernameLabel.Location = new Point(61, 70);
+            UsernameLabel.Name = "UsernameLabel";
+            UsernameLabel.Size = new Size(75, 20);
+            UsernameLabel.TabIndex = 0;
+            UsernameLabel.Text = "Username";
             // 
-            // exitBtn
+            // ExitBtn
             // 
-            exitBtn.Anchor = AnchorStyles.None;
-            exitBtn.Location = new Point(13, 539);
-            exitBtn.Name = "exitBtn";
-            exitBtn.Size = new Size(80, 34);
-            exitBtn.TabIndex = 6;
-            exitBtn.Text = "Exit";
-            exitBtn.UseVisualStyleBackColor = true;
+            ExitBtn.Anchor = AnchorStyles.None;
+            ExitBtn.Location = new Point(13, 539);
+            ExitBtn.Name = "ExitBtn";
+            ExitBtn.Size = new Size(80, 34);
+            ExitBtn.TabIndex = 6;
+            ExitBtn.Text = "Exit";
+            ExitBtn.UseVisualStyleBackColor = true;
+            ExitBtn.Click += ExitBtn_Click;
             // 
             // Login
             // 
@@ -142,28 +145,28 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(571, 586);
-            Controls.Add(exitBtn);
-            Controls.Add(loginForm);
-            Controls.Add(mainImage);
+            Controls.Add(ExitBtn);
+            Controls.Add(LoginForm);
+            Controls.Add(MainImage);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Login";
             Text = "ABC Cooperation";
-            ((System.ComponentModel.ISupportInitialize)mainImage).EndInit();
-            loginForm.ResumeLayout(false);
-            loginForm.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)MainImage).EndInit();
+            LoginForm.ResumeLayout(false);
+            LoginForm.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private PictureBox mainImage;
-        private GroupBox loginForm;
-        private Label usernameLabel;
-        private Label passwordLabel;
-        private Button clearBtn;
-        private TextBox password;
-        private TextBox username;
-        private Button loginBtn;
-        private Button exitBtn;
+        private PictureBox MainImage;
+        private GroupBox LoginForm;
+        private Label UsernameLabel;
+        private Label PasswordLabel;
+        private Button ClearBtn;
+        private TextBox Password;
+        private TextBox Username;
+        private Button LoginBtn;
+        private Button ExitBtn;
     }
 }
