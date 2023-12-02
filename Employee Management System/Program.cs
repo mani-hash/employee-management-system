@@ -1,5 +1,3 @@
-using System.Configuration;
-
 namespace Employee_Management_System
 {
     internal static class Program
@@ -14,16 +12,6 @@ namespace Employee_Management_System
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new Login());
-        }
-
-        public static string? GetConnectionString()
-        {
-            ConnectionStringSettings? settings = ConfigurationManager.ConnectionStrings["LocalSQLServer"];
-
-            return settings?.ConnectionString;
-
-            
-
         }
     }
 }
