@@ -13,15 +13,6 @@ namespace Employee_Management_System
 {
     public partial class Login : Form
     {
-        private string TxtUsername
-        {
-            get { return Username.Text; }
-        }
-
-        private string TxtPassword
-        { 
-            get { return Password.Text; }
-        }
 
         public Login()
         {
@@ -74,8 +65,8 @@ namespace Employee_Management_System
 
                     SqlCommand sqlCommand = new SqlCommand(query, con);
 
-                    sqlCommand.Parameters.Add(new SqlParameter("@UsernameValue", this.TxtUsername));
-                    sqlCommand.Parameters.Add(new SqlParameter("@PasswordValue", this.TxtPassword));
+                    sqlCommand.Parameters.Add(new SqlParameter("@UsernameValue", Username.Text));
+                    sqlCommand.Parameters.Add(new SqlParameter("@PasswordValue", Password.Text));
 
                     SqlDataReader row = sqlCommand.ExecuteReader();
 
