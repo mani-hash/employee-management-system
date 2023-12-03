@@ -122,6 +122,7 @@
             ClearBtn.TabIndex = 8;
             ClearBtn.Text = "Clear";
             ClearBtn.UseVisualStyleBackColor = true;
+            ClearBtn.Click += ClearBtn_Click;
             // 
             // DeleteBtn
             // 
@@ -323,13 +324,13 @@
             Female.Name = "Female";
             Female.Size = new Size(75, 24);
             Female.TabIndex = 8;
-            Female.TabStop = true;
             Female.Text = "Female";
             Female.UseVisualStyleBackColor = true;
             // 
             // Male
             // 
             Male.AutoSize = true;
+            Male.Checked = true;
             Male.Location = new Point(120, 147);
             Male.Name = "Male";
             Male.Size = new Size(60, 24);
