@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             MainImage = new PictureBox();
             LoginForm = new GroupBox();
+            PasswordView = new Button();
             LoginBtn = new Button();
             ClearBtn = new Button();
             Password = new TextBox();
@@ -56,6 +57,7 @@
             // LoginForm
             // 
             LoginForm.Anchor = AnchorStyles.None;
+            LoginForm.Controls.Add(PasswordView);
             LoginForm.Controls.Add(LoginBtn);
             LoginForm.Controls.Add(ClearBtn);
             LoginForm.Controls.Add(Password);
@@ -69,6 +71,15 @@
             LoginForm.TabIndex = 1;
             LoginForm.TabStop = false;
             LoginForm.Text = "Login";
+            // 
+            // PasswordView
+            // 
+            PasswordView.Location = new Point(402, 128);
+            PasswordView.Name = "PasswordView";
+            PasswordView.Size = new Size(57, 27);
+            PasswordView.TabIndex = 6;
+            PasswordView.UseVisualStyleBackColor = true;
+            PasswordView.Click += PasswordView_Click;
             // 
             // LoginBtn
             // 
@@ -97,8 +108,9 @@
             Password.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             Password.Location = new Point(174, 128);
             Password.Name = "Password";
-            Password.Size = new Size(285, 27);
+            Password.Size = new Size(228, 27);
             Password.TabIndex = 3;
+            Password.UseSystemPasswordChar = true;
             // 
             // Username
             // 
@@ -151,6 +163,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Login";
             Text = "ABC Cooperation";
+            Load += Login_Load;
             ((System.ComponentModel.ISupportInitialize)MainImage).EndInit();
             LoginForm.ResumeLayout(false);
             LoginForm.PerformLayout();
@@ -168,5 +181,6 @@
         private TextBox Username;
         private Button LoginBtn;
         private Button ExitBtn;
+        private Button PasswordView;
     }
 }

@@ -13,10 +13,33 @@ namespace Employee_Management_System
 {
     public partial class Login : Form
     {
+        private string passwordVisible;
+        private string passwordHidden;
 
         public Login()
         {
             InitializeComponent();
+            this.passwordVisible = "Show";
+            this.passwordHidden = "Hide";
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+            PasswordView.Text = this.passwordVisible;
+        }
+
+        private void PasswordView_Click(object sender, EventArgs e)
+        {
+            if (PasswordView.Text == this.passwordVisible)
+            {
+                PasswordView.Text = this.passwordHidden;
+                Password.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                PasswordView.Text = this.passwordVisible;
+                Password.UseSystemPasswordChar = true;
+            }
         }
 
         private void ClearBtn_Click(object sender, EventArgs e)
@@ -40,9 +63,9 @@ namespace Employee_Management_System
 
         private void DisplayRegistrationForm()
         {
-            this.Hide();
-            ManageEmployee registration = new ManageEmployee();
-            registration.Show();
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+
         }
 
         private static void InvalidLogin()
@@ -79,7 +102,7 @@ namespace Employee_Management_System
                         InvalidLogin();
                     }
 
-                } 
+                }
                 catch (Exception ex)
                 {
                     string errorMsg = "An error occured";
@@ -88,7 +111,6 @@ namespace Employee_Management_System
             }
         }
 
-
-
+        
     }
 }
