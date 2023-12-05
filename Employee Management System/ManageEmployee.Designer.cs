@@ -136,6 +136,7 @@
             // 
             // UpdateBtn
             // 
+            UpdateBtn.Enabled = false;
             UpdateBtn.Font = new Font("Segoe UI", 10F);
             UpdateBtn.Location = new Point(109, 694);
             UpdateBtn.Name = "UpdateBtn";
@@ -153,6 +154,7 @@
             RegisterBtn.TabIndex = 5;
             RegisterBtn.Text = "Register";
             RegisterBtn.UseVisualStyleBackColor = true;
+            RegisterBtn.Click += RegisterBtn_Click;
             // 
             // DepDetailsForm
             // 
@@ -403,6 +405,7 @@
             EmpNo.Name = "EmpNo";
             EmpNo.Size = new Size(121, 28);
             EmpNo.TabIndex = 1;
+            EmpNo.SelectedIndexChanged += EmpNo_SelectedIndexChanged;
             // 
             // EmpNoLabel
             // 
@@ -424,6 +427,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ManageEmployee";
             Text = "ABC Cooperation";
+            Load += ManageEmployee_Load;
             RegistrationForm.ResumeLayout(false);
             RegistrationForm.PerformLayout();
             DepDetailsForm.ResumeLayout(false);
