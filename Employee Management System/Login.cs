@@ -80,6 +80,11 @@ namespace Employee_Management_System
             string? connectionString = Database.GetConnectionString();
             string query = $@"SELECT * FROM Login WHERE username = @UsernameValue AND password = @PasswordValue";
 
+            if (connectionString == null)
+            {
+                return;
+            }
+
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 try
