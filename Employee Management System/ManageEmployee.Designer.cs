@@ -80,6 +80,7 @@
             LogoutLink.TabIndex = 0;
             LogoutLink.TabStop = true;
             LogoutLink.Text = "Logout";
+            LogoutLink.LinkClicked += LogoutLink_LinkClicked;
             // 
             // MainLabel
             // 

@@ -87,7 +87,7 @@ namespace Employee_Management_System
                 }
             }
 
-            
+
         }
 
         private List<(string, string)> GetEmpData()
@@ -169,7 +169,7 @@ namespace Employee_Management_System
 
             string separator = ",";
 
-            foreach(string key in keyNames)
+            foreach (string key in keyNames)
             {
                 if (keyNames[list_length - 1] == key)
                 {
@@ -184,7 +184,7 @@ namespace Employee_Management_System
 
             SqlCommand sqlCommand = new SqlCommand(query, con);
 
-            foreach((string key, string data) in empData)
+            foreach ((string key, string data) in empData)
             {
                 sqlCommand.Parameters.Add(new SqlParameter("@" + key, data));
 
@@ -193,7 +193,7 @@ namespace Employee_Management_System
 
             return sqlCommand;
 
-          
+
         }
 
         private static void ShowConnectError()
@@ -204,7 +204,7 @@ namespace Employee_Management_System
 
         private void RegisterBtn_Click(object sender, EventArgs e)
         {
-            
+
 
             if (this.connectionString == null)
             {
@@ -224,12 +224,24 @@ namespace Employee_Management_System
                     MessageBox.Show("Record added successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
-                } 
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     //ShowConnectError();
                 }
+            }
+        }
+
+        private void LogoutLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //ClearTextBoxes(this.Controls);
+            ClearBtn.PerformClick();
+            this.Hide();
+            Login login = new Login();
+            if (login.ShowDialog() == DialogResult.OK)
+            {
+                this.Show();
             }
         }
     }
