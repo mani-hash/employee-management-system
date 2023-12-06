@@ -64,6 +64,7 @@
             FirstNameLabel = new Label();
             EmpNo = new ComboBox();
             EmpNoLabel = new Label();
+            ExitLink = new LinkLabel();
             RegistrationForm.SuspendLayout();
             DepDetailsForm.SuspendLayout();
             ContactDetailForm.SuspendLayout();
@@ -74,9 +75,10 @@
             // 
             LogoutLink.Anchor = AnchorStyles.None;
             LogoutLink.AutoSize = true;
-            LogoutLink.Location = new Point(53, 24);
+            LogoutLink.Font = new Font("Segoe UI", 10F);
+            LogoutLink.Location = new Point(53, 37);
             LogoutLink.Name = "LogoutLink";
-            LogoutLink.Size = new Size(45, 15);
+            LogoutLink.Size = new Size(53, 19);
             LogoutLink.TabIndex = 0;
             LogoutLink.TabStop = true;
             LogoutLink.Text = "Logout";
@@ -418,11 +420,25 @@
             EmpNoLabel.TabIndex = 0;
             EmpNoLabel.Text = "Employee No";
             // 
+            // ExitLink
+            // 
+            ExitLink.Anchor = AnchorStyles.None;
+            ExitLink.AutoSize = true;
+            ExitLink.Font = new Font("Segoe UI", 10F);
+            ExitLink.Location = new Point(53, 19);
+            ExitLink.Name = "ExitLink";
+            ExitLink.Size = new Size(30, 19);
+            ExitLink.TabIndex = 3;
+            ExitLink.TabStop = true;
+            ExitLink.Text = "Exit";
+            ExitLink.LinkClicked += ExitLink_LinkClicked;
+            // 
             // ManageEmployee
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(570, 881);
+            Controls.Add(ExitLink);
             Controls.Add(RegistrationForm);
             Controls.Add(LogoutLink);
             Controls.Add(MainLabel);
@@ -479,5 +495,6 @@
         private Label FirstNameLabel;
         private ComboBox EmpNo;
         private Label EmpNoLabel;
+        private LinkLabel ExitLink;
     }
 }

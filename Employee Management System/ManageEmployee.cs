@@ -318,5 +318,18 @@ namespace Employee_Management_System
         {
 
         }
+
+        private void ExitLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string exitMsg = "Are you sure, Do you really want to exit?";
+            string exitCaption = "Exit";
+
+            DialogResult result = MessageBox.Show(exitMsg, exitCaption, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+            if (result == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
     }
 }
