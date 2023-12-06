@@ -37,9 +37,9 @@
             UpdateBtn = new Button();
             RegisterBtn = new Button();
             DepDetailsForm = new GroupBox();
-            EmpType = new TextBox();
+            EmployeeType = new TextBox();
             Designation = new TextBox();
-            DepName = new TextBox();
+            DepartmentName = new TextBox();
             EmpTypeLabel = new Label();
             DesignationLabel = new Label();
             DepNameLabel = new Label();
@@ -145,6 +145,7 @@
             UpdateBtn.TabIndex = 6;
             UpdateBtn.Text = "Update";
             UpdateBtn.UseVisualStyleBackColor = true;
+            UpdateBtn.Click += UpdateBtn_Click;
             // 
             // RegisterBtn
             // 
@@ -159,9 +160,9 @@
             // 
             // DepDetailsForm
             // 
-            DepDetailsForm.Controls.Add(EmpType);
+            DepDetailsForm.Controls.Add(EmployeeType);
             DepDetailsForm.Controls.Add(Designation);
-            DepDetailsForm.Controls.Add(DepName);
+            DepDetailsForm.Controls.Add(DepartmentName);
             DepDetailsForm.Controls.Add(EmpTypeLabel);
             DepDetailsForm.Controls.Add(DesignationLabel);
             DepDetailsForm.Controls.Add(DepNameLabel);
@@ -172,12 +173,12 @@
             DepDetailsForm.TabStop = false;
             DepDetailsForm.Text = "Department Details";
             // 
-            // EmpType
+            // EmployeeType
             // 
-            EmpType.Location = new Point(147, 127);
-            EmpType.Name = "EmpType";
-            EmpType.Size = new Size(158, 27);
-            EmpType.TabIndex = 6;
+            EmployeeType.Location = new Point(147, 127);
+            EmployeeType.Name = "EmployeeType";
+            EmployeeType.Size = new Size(158, 27);
+            EmployeeType.TabIndex = 6;
             // 
             // Designation
             // 
@@ -186,12 +187,12 @@
             Designation.Size = new Size(158, 27);
             Designation.TabIndex = 5;
             // 
-            // DepName
+            // DepartmentName
             // 
-            DepName.Location = new Point(147, 45);
-            DepName.Name = "DepName";
-            DepName.Size = new Size(333, 27);
-            DepName.TabIndex = 4;
+            DepartmentName.Location = new Point(147, 45);
+            DepartmentName.Name = "DepartmentName";
+            DepartmentName.Size = new Size(333, 27);
+            DepartmentName.TabIndex = 4;
             // 
             // EmpTypeLabel
             // 
@@ -451,9 +452,9 @@
         private Button UpdateBtn;
         private Button RegisterBtn;
         private GroupBox DepDetailsForm;
-        private TextBox EmpType;
+        private TextBox EmployeeType;
         private TextBox Designation;
-        private TextBox DepName;
+        private TextBox DepartmentName;
         private Label EmpTypeLabel;
         private Label DesignationLabel;
         private Label DepNameLabel;

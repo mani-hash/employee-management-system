@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -18,8 +19,6 @@ namespace Employee_Management_System
         private string defaultEmpNo;
 
         private string? connectionString;
-
-        private readonly List<string> employeeDataName;
 
         private string TxtGender
         {
@@ -73,6 +72,11 @@ namespace Employee_Management_System
 
                     EmpNo.Items.Add(this.defaultEmpNo);
 
+                    if (row == null)
+                    {
+                        return;
+                    }
+
                     while (row.Read())
                     {
                         EmpNo.Items.Add(row[0].ToString());
@@ -86,8 +90,6 @@ namespace Employee_Management_System
                     ShowConnectError();
                 }
             }
-
-
         }
 
         private List<(string, string)> GetEmpData()
@@ -102,9 +104,9 @@ namespace Employee_Management_System
                 ("email", Email.Text),
                 ("mobilePhone", MobilePhone.Text),
                 ("homePhone", HomePhone.Text),
-                ("departmentName", DepName.Text),
+                ("departmentName", DepartmentName.Text),
                 ("designation", Designation.Text),
-                ("employeeType", EmpType.Text)
+                ("employeeType", EmployeeType.Text)
             };
 
             return empData;
@@ -138,6 +140,35 @@ namespace Employee_Management_System
         private void EmpNo_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.UpdateButtonVisibility();
+
+            if (EmpNo.Text == this.defaultEmpNo)
+            {
+                ClearBtn.PerformClick();
+                return;
+            }
+
+            string query = $@"SELECT * FROM Employee WHERE empNo = @empNo";
+
+            using (SqlConnection con = new SqlConnection(this.connectionString))
+            {
+                try
+                {
+                    con.Open();
+
+                    SqlCommand sqlCommand = new SqlCommand(query, con);
+
+                    sqlCommand.Parameters.Add(new SqlParameter("@empNo", EmpNo.Text));
+
+                    SqlDataReader row = sqlCommand.ExecuteReader();
+
+                    this.FillFormData(row);
+
+                }
+                catch (Exception ex)
+                {
+                    ShowConnectError();
+                }
+            }
         }
 
         private void UpdateButtonVisibility()
@@ -156,7 +187,46 @@ namespace Employee_Management_System
             }
         }
 
-        private SqlCommand ConstructQuery(SqlConnection con)
+        private void FillFormData(SqlDataReader row)
+        {
+            while (row.Read())
+            {
+                int count = 1;
+
+                List<(string, string)> empData = this.GetEmpData();
+
+                foreach ((string key, _) in empData)
+                {
+                    if (key == "gender")
+                    {
+                        if (row[count].ToString() == "male")
+                        {
+                            Male.Checked = true;
+                        }
+                        else
+                        {
+                            Female.Checked = true;
+                        }
+
+                        count++;
+                        continue;
+
+                    }
+                    string fieldName = $"{key[0].ToString().ToUpper()}{key.Substring(1)}";
+
+                    Control? control = this.Controls.Find(fieldName, true)[0];
+                    if (control != null)
+                    {
+                        control.Text = row[count].ToString();
+
+                    }
+                    count++;
+                }
+
+            }
+        }
+
+        private SqlCommand ConstructInsertQuery(SqlConnection con)
         {
             string fieldName = "";
             string parameterName = "";
@@ -165,7 +235,7 @@ namespace Employee_Management_System
 
             List<string> keyNames = empData.Select(item => item.Item1).ToList();
 
-            int list_length = keyNames.Count();
+            int list_length = keyNames.Count;
 
             string separator = ",";
 
@@ -187,12 +257,13 @@ namespace Employee_Management_System
             foreach ((string key, string data) in empData)
             {
                 sqlCommand.Parameters.Add(new SqlParameter("@" + key, data));
-
             }
 
-
             return sqlCommand;
+        }
 
+        private void ConstructUpdateQuery()
+        {
 
         }
 
@@ -217,25 +288,23 @@ namespace Employee_Management_System
                 {
                     con.Open();
 
-                    SqlCommand sqlCommand = this.ConstructQuery(con);
-
+                    SqlCommand sqlCommand = this.ConstructInsertQuery(con);
                     sqlCommand.ExecuteNonQuery();
-
                     MessageBox.Show("Record added successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                    EmpNo.Items.Clear();
+                    this.FillEmpNo();
 
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //ShowConnectError();
+                    ShowConnectError();
                 }
             }
         }
 
         private void LogoutLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //ClearTextBoxes(this.Controls);
             ClearBtn.PerformClick();
             this.Hide();
             Login login = new Login();
@@ -243,6 +312,11 @@ namespace Employee_Management_System
             {
                 this.Show();
             }
+        }
+
+        private void UpdateBtn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
