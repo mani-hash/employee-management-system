@@ -11,7 +11,13 @@ namespace Employee_Management_System
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Login());
+
+            Login LoginForm = new Login();
+            if (LoginForm.ShowDialog() == DialogResult.OK)
+            {
+                Application.Run(new ManageEmployee());
+            }
+            
         }
     }
 }
