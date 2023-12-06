@@ -11,7 +11,7 @@ using System.Data.SqlClient;
 
 namespace Employee_Management_System
 {
-    public partial class Login : Form
+    public partial class Login : MainForm
     {
         private string passwordVisible;
         private string passwordHidden;
@@ -50,22 +50,13 @@ namespace Employee_Management_System
 
         private void ExitBtn_Click(object sender, EventArgs e)
         {
-            string exitMsg = "Are you sure, Do you really want to exit?";
-            string exitCaption = "Exit";
-
-            DialogResult result = MessageBox.Show(exitMsg, exitCaption, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-
-            if (result == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
+            ShowExitApp();
         }
 
         private void DisplayRegistrationForm()
         {
             this.DialogResult = DialogResult.OK;
             this.Close();
-
         }
 
         private static void InvalidLogin()
@@ -77,15 +68,14 @@ namespace Employee_Management_System
 
         private void LoginBtn_Click(object sender, EventArgs e)
         {
-            string? connectionString = Database.GetConnectionString();
             string query = $@"SELECT * FROM Login WHERE username = @UsernameValue AND password = @PasswordValue";
 
-            if (connectionString == null)
+            if (this.connectionString == null)
             {
                 return;
             }
 
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection con = new SqlConnection(this.connectionString))
             {
                 try
                 {
@@ -110,8 +100,7 @@ namespace Employee_Management_System
                 }
                 catch (Exception ex)
                 {
-                    string errorMsg = "An error occured";
-                    MessageBox.Show(errorMsg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ShowConnectError();
                 }
             }
         }

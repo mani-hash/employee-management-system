@@ -14,11 +14,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Employee_Management_System
 {
-    public partial class ManageEmployee : Form
+    public partial class ManageEmployee : MainForm
     {
-        private string defaultEmpNo;
-
-        private string? connectionString;
+        private readonly string defaultEmpNo;
 
         private string TxtGender
         {
@@ -39,8 +37,6 @@ namespace Employee_Management_System
         {
             InitializeComponent();
             this.defaultEmpNo = "New Register";
-            this.connectionString = Database.GetConnectionString();
-
             DateOfBirth.Format = DateTimePickerFormat.Custom;
             DateOfBirth.CustomFormat = "yyyy/MM/dd";
         }
@@ -52,7 +48,6 @@ namespace Employee_Management_System
 
         private void FillEmpNo()
         {
-
             string query = "SELECT * FROM Employee";
 
             if (this.connectionString == null)
@@ -110,8 +105,6 @@ namespace Employee_Management_System
             };
 
             return empData;
-
-
         }
 
         private static void ClearTextBoxes(Control.ControlCollection ctrlCollection)
@@ -210,7 +203,6 @@ namespace Employee_Management_System
 
                         count++;
                         continue;
-
                     }
                     string fieldName = $"{key[0].ToString().ToUpper()}{key.Substring(1)}";
 
@@ -218,11 +210,9 @@ namespace Employee_Management_System
                     if (control != null)
                     {
                         control.Text = row[count].ToString();
-
                     }
                     count++;
                 }
-
             }
         }
 
@@ -297,12 +287,6 @@ namespace Employee_Management_System
             return sqlCommand;
         }
 
-        private static void ShowConnectError()
-        {
-            string errorMsg = "An error occured!";
-            MessageBox.Show(errorMsg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
         private void RegisterBtn_Click(object sender, EventArgs e)
         {
 
@@ -375,15 +359,7 @@ namespace Employee_Management_System
 
         private void ExitLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string exitMsg = "Are you sure, Do you really want to exit?";
-            string exitCaption = "Exit";
-
-            DialogResult result = MessageBox.Show(exitMsg, exitCaption, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-
-            if (result == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
+            ShowExitApp();
         }
 
         private void DeleteBtn_Click(object sender, EventArgs e)
