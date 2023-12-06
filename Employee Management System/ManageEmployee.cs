@@ -46,9 +46,10 @@ namespace Employee_Management_System
             this.FillEmpNo();
         }
 
+        //Fill the combo box with EmpNo details
         private void FillEmpNo()
         {
-            string query = "SELECT * FROM Employee";
+            string query = $@"SELECT * FROM {Database.employee}";
 
             if (this.connectionString == null)
             {
@@ -62,9 +63,7 @@ namespace Employee_Management_System
                     con.Open();
 
                     SqlCommand sqlCommand = new SqlCommand(query, con);
-
                     SqlDataReader row = sqlCommand.ExecuteReader();
-
                     EmpNo.Items.Add(this.defaultEmpNo);
 
                     if (row == null)
@@ -87,6 +86,7 @@ namespace Employee_Management_System
             }
         }
 
+        //Get the data of all fillable boxes in the form
         private List<(string, string)> GetEmpData()
         {
             List<(string, string)> empData = new List<(string, string)>()
@@ -107,6 +107,7 @@ namespace Employee_Management_System
             return empData;
         }
 
+        //Clear all textboxes in form
         private static void ClearTextBoxes(Control.ControlCollection ctrlCollection)
         {
             foreach (Control ctrl in ctrlCollection)
@@ -125,11 +126,12 @@ namespace Employee_Management_System
         private void ClearBtn_Click(object sender, EventArgs e)
         {
             EmpNo.Text = this.defaultEmpNo;
-            DateOfBirth.Text = DateTime.Today.ToString();
+            DateOfBirth.Text = DateTime.Today.ToString(); //reset date time
             ClearTextBoxes(this.Controls);
 
         }
 
+        //Function when combo box choice is changed by user
         private void EmpNo_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.UpdateButtonVisibility();
@@ -140,7 +142,9 @@ namespace Employee_Management_System
                 return;
             }
 
-            string query = $@"SELECT * FROM Employee WHERE empNo = @empNo";
+            string parameterName = "@empNo";
+
+            string query = $@"SELECT * FROM {Database.employee} WHERE empNo = {parameterName}";
 
             using (SqlConnection con = new SqlConnection(this.connectionString))
             {
@@ -150,7 +154,7 @@ namespace Employee_Management_System
 
                     SqlCommand sqlCommand = new SqlCommand(query, con);
 
-                    sqlCommand.Parameters.Add(new SqlParameter("@empNo", EmpNo.Text));
+                    sqlCommand.Parameters.Add(new SqlParameter(parameterName, EmpNo.Text));
 
                     SqlDataReader row = sqlCommand.ExecuteReader();
 
@@ -164,6 +168,7 @@ namespace Employee_Management_System
             }
         }
 
+        //set update, register and delete button states
         private void UpdateButtonVisibility()
         {
             if (EmpNo.Text == this.defaultEmpNo)
@@ -180,6 +185,7 @@ namespace Employee_Management_System
             }
         }
 
+        //Completely fill form with data from database
         private void FillFormData(SqlDataReader row)
         {
             while (row.Read())
@@ -190,6 +196,7 @@ namespace Employee_Management_System
 
                 foreach ((string key, _) in empData)
                 {
+                    //special case for gender radio button
                     if (key == "gender")
                     {
                         if (row[count].ToString() == "male")
@@ -204,6 +211,8 @@ namespace Employee_Management_System
                         count++;
                         continue;
                     }
+
+                    //Change first letter of fieldName to capital
                     string fieldName = $"{key[0].ToString().ToUpper()}{key.Substring(1)}";
 
                     Control? control = this.Controls.Find(fieldName, true)[0];
@@ -216,6 +225,7 @@ namespace Employee_Management_System
             }
         }
 
+        //Create insert query for form insert
         private SqlCommand ConstructInsertQuery(SqlConnection con)
         {
             string fieldName = "";
@@ -240,7 +250,7 @@ namespace Employee_Management_System
                 parameterName += "@" + key + separator;
             }
 
-            string query = $@"INSERT INTO Employee({fieldName}) VALUES ({parameterName})";
+            string query = $@"INSERT INTO {Database.employee}({fieldName}) VALUES ({parameterName})";
 
             SqlCommand sqlCommand = new SqlCommand(query, con);
 
@@ -252,6 +262,7 @@ namespace Employee_Management_System
             return sqlCommand;
         }
 
+        //Create update query for form update
         private SqlCommand ConstructUpdateQuery(SqlConnection con)
         {
             string updateEntries = "";
@@ -273,7 +284,9 @@ namespace Employee_Management_System
                 updateEntries += key + "= @" + key + separator;
             }
 
-            string query = $@"UPDATE Employee SET {updateEntries} WHERE empNo = @empNo";
+            string parameterName = "@empNo";
+
+            string query = $@"UPDATE {Database.employee} SET {updateEntries} WHERE empNo = {parameterName}";
 
             SqlCommand sqlCommand = new SqlCommand(query, con);
 
@@ -282,15 +295,13 @@ namespace Employee_Management_System
                 sqlCommand.Parameters.Add(new SqlParameter("@" + key, data));
             }
 
-            sqlCommand.Parameters.Add(new SqlParameter("@empNo", EmpNo.Text));
+            sqlCommand.Parameters.Add(new SqlParameter(parameterName, EmpNo.Text));
 
             return sqlCommand;
         }
 
         private void RegisterBtn_Click(object sender, EventArgs e)
         {
-
-
             if (this.connectionString == null)
             {
                 return;
@@ -308,7 +319,6 @@ namespace Employee_Management_System
 
                     EmpNo.Items.Clear();
                     this.FillEmpNo();
-
                 }
                 catch (Exception ex)
                 {
@@ -375,9 +385,11 @@ namespace Employee_Management_System
             }
         }
 
+        //Method to delete row from database
         private void DeleteRecord()
         {
-            string query = $@"DELETE FROM Employee WHERE empNo = @empNo";
+            string parameterName = "@empNo";
+            string query = $@"DELETE FROM {Database.employee} WHERE empNo = {parameterName}";
             using (SqlConnection con = new SqlConnection(this.connectionString))
             {
                 try

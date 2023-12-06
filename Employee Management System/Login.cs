@@ -68,7 +68,10 @@ namespace Employee_Management_System
 
         private void LoginBtn_Click(object sender, EventArgs e)
         {
-            string query = $@"SELECT * FROM Login WHERE username = @UsernameValue AND password = @PasswordValue";
+            string parameterUsername = "@Username";
+            string parameterPassword = "@Password";
+
+            string query = $@"SELECT * FROM {Database.login} WHERE username = {parameterUsername} AND password = {parameterPassword}";
 
             if (this.connectionString == null)
             {
@@ -83,8 +86,8 @@ namespace Employee_Management_System
 
                     SqlCommand sqlCommand = new SqlCommand(query, con);
 
-                    sqlCommand.Parameters.Add(new SqlParameter("@UsernameValue", Username.Text));
-                    sqlCommand.Parameters.Add(new SqlParameter("@PasswordValue", Password.Text));
+                    sqlCommand.Parameters.Add(new SqlParameter(parameterUsername, Username.Text));
+                    sqlCommand.Parameters.Add(new SqlParameter(parameterPassword, Password.Text));
 
                     SqlDataReader row = sqlCommand.ExecuteReader();
 
