@@ -262,9 +262,39 @@ namespace Employee_Management_System
             return sqlCommand;
         }
 
-        private void ConstructUpdateQuery()
+        private SqlCommand ConstructUpdateQuery(SqlConnection con)
         {
+            string updateEntries = "";
+            List <(string, string)> empData = this.GetEmpData();
 
+            List<string> keyNames = empData.Select(item => item.Item1).ToList();
+
+            int list_length = keyNames.Count;
+
+            string separator = ",";
+
+            foreach (string key in keyNames)
+            {
+                if (keyNames[list_length - 1] == key)
+                {
+                    separator = "";
+                }
+
+                updateEntries += key + "= @" + key + separator;
+            }
+
+            string query = $@"UPDATE Employee SET {updateEntries} WHERE empNo = @empNo";
+
+            SqlCommand sqlCommand = new SqlCommand(query, con);
+
+            foreach ((string key, string data) in empData)
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@" + key, data));
+            }
+
+            sqlCommand.Parameters.Add(new SqlParameter("@empNo", EmpNo.Text));
+
+            return sqlCommand;
         }
 
         private static void ShowConnectError()
@@ -303,6 +333,33 @@ namespace Employee_Management_System
             }
         }
 
+        private void UpdateBtn_Click(object sender, EventArgs e)
+        {
+            if (this.connectionString == null)
+            {
+                return;
+            }
+
+            using (SqlConnection con = new SqlConnection(this.connectionString))
+            {
+                try
+                {
+                    con.Open();
+
+                    SqlCommand sqlCommand = this.ConstructUpdateQuery(con);
+                    sqlCommand.ExecuteNonQuery();
+                    MessageBox.Show("Record updated successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    ShowConnectError();
+                }
+            }
+
+        }
+
         private void LogoutLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ClearBtn.PerformClick();
@@ -314,10 +371,7 @@ namespace Employee_Management_System
             }
         }
 
-        private void UpdateBtn_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void ExitLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
