@@ -7,8 +7,11 @@ using System.Configuration;
 
 namespace Employee_Management_System
 {
-    public class Database
+    public static class Database
     {
+        public const string login = "Login";
+        public const string employee = "Employee";
+
         public static string? GetConnectionString()
         {
             ConnectionStringSettings? settings = ConfigurationManager.ConnectionStrings["LocalSQLServer"];
