@@ -265,7 +265,7 @@ namespace Employee_Management_System
         private SqlCommand ConstructUpdateQuery(SqlConnection con)
         {
             string updateEntries = "";
-            List <(string, string)> empData = this.GetEmpData();
+            List<(string, string)> empData = this.GetEmpData();
 
             List<string> keyNames = empData.Select(item => item.Item1).ToList();
 
@@ -371,7 +371,7 @@ namespace Employee_Management_System
             }
         }
 
-        
+
 
         private void ExitLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -383,6 +383,44 @@ namespace Employee_Management_System
             if (result == DialogResult.Yes)
             {
                 Application.Exit();
+            }
+        }
+
+        private void DeleteBtn_Click(object sender, EventArgs e)
+        {
+            string deleteMsg = "Are you sure, Do you want to delete this record";
+            string deleteCaption = "Delete";
+
+            DialogResult result = MessageBox.Show(deleteMsg, deleteCaption, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                this.DeleteRecord();
+            }
+        }
+
+        private void DeleteRecord()
+        {
+            string query = $@"DELETE FROM Employee WHERE empNo = @empNo";
+            using (SqlConnection con = new SqlConnection(this.connectionString))
+            {
+                try
+                {
+                    con.Open();
+
+                    SqlCommand sqlCommand = new SqlCommand(query, con);
+                    sqlCommand.Parameters.Add(new SqlParameter("@empNo", EmpNo.Text));
+                    sqlCommand.ExecuteNonQuery();
+
+                    MessageBox.Show("Record deleted successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    EmpNo.Items.Clear();
+                    this.FillEmpNo();
+                }
+                catch (Exception ex)
+                {
+                    ShowConnectError();
+                }
             }
         }
     }
