@@ -362,6 +362,10 @@ namespace Employee_Management_System
             if (login.ShowDialog() == DialogResult.OK)
             {
                 this.Show();
+            } 
+            else
+            {
+                Application.Exit();
             }
         }
 
